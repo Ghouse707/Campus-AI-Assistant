@@ -1,210 +1,247 @@
-<<<<<<< HEAD
-# Campus AI 🎓
+# 🎓 Campus AI
 
-An intelligent, RAG-powered college knowledge assistant and administration management system.
+Campus AI is an AI-powered virtual campus assistant designed to help students easily access college-related information.
 
-Campus AI is strictly divided into **ONLY TWO** sides:
-1. **USER (Student)**: Contains **ONLY** an AI Assistant chat (ChatGPT-style) to ask any questions regarding college data, exam dates, schedules, circulars, fees, and rules.
-2. **ADMIN**: A dedicated dashboard to feed knowledge to the AI through exactly three content types:
-   - **Text**: Enter direct notices, announcements, and rules.
-   - **PDF**: Upload PDF files with automatic text extraction (`pypdf`).
-   - **Images**: Upload notices/circulars with automatic Optical Character Recognition (`OCR`).
+Students can ask questions through an AI assistant, while administrators can manage campus information such as announcements, exams, PDFs, and images.
 
 ---
 
-## 🏛️ Architecture Flow
+## 📸 Screenshots
 
-```
-ADMIN
-  ↓
-TEXT / PDF / IMAGE
-  ↓
-Extract & Store Information
-  ↓
-Knowledge Database (SQLite)
-  ↓
-AI Assistant (RAG Pipeline)
-  ↑
-USER asks question
-  ↓
-AI searches the knowledge database
-  ↓
-Retrieves relevant information
-  ↓
-Generates answer
-  ↓
-Shows answer to USER
-```
+### 🏠 Main Page
 
-### Retrieval & Answering Logic
-- **Example Question**: *"When is the internal exam?"*
-  - **AI Answer**: *"Internal exam will be conducted on 12 July at 9:30 AM."*
-- **If Information is Not in Database**:
-  - **AI Answer**: *"I couldn't find this information in the available college data."*
+<img width="2834" height="1492" alt="image" src="https://github.com/user-attachments/assets/7f0e62b1-6e16-4c47-8998-8fb9b66423a2" />
 
----
 
-## 🛠️ Tech Stack
 
-- **Frontend**:
-  - React 18
-  - Vite
-  - Tailwind CSS
-  - Lucide React Icons
-  - React Router DOM
-- **Backend**:
-  - Python 3.10+ (tested on Python 3.13)
-  - FastAPI
-  - SQLite3 (Relational + BM25 keyword relevance ranking)
-  - PyJWT & PBKDF2 cryptography for RBAC authentication
-- **Document & Image Processing**:
-  - `pypdf`: Full multi-page PDF text extraction
-  - `winocr` / `pytesseract`: Fast OCR for images, circulars, and photos
-- **AI & RAG**:
-  - Dual-mode intelligent RAG:
-    - **Smart Local Extractive RAG**: Works immediately out of the box with zero external API keys!
-    - **Generative LLM Mode**: Seamlessly plug in `GEMINI_API_KEY` or `OPENAI_API_KEY` in `.env` for generative responses.
+### 👨‍🎓 Student Dashboard
+
+<img width="2848" height="1484" alt="image" src="https://github.com/user-attachments/assets/d3161d6d-45e8-4269-85f6-077bae40cc9f" />
+
+
+
+### 👨‍💼 Admin Dashboard
+
+<img width="2868" height="1526" alt="image" src="https://github.com/user-attachments/assets/9d18b6bd-a7bd-409f-b26e-b0efa13068bd" />
+
+## ✨ Features
+
+### 👨‍🎓 Student
+
+- 🤖 AI-powered campus assistant
+- 💬 Ask questions using natural language
+- 📚 Get answers from college information
+- 📄 Access uploaded PDFs
+- 🖼️ Access uploaded images
+- 📢 View announcements
+- 📝 View examination information
+- 🔐 Secure authentication
+
+### 👨‍💼 Admin
+
+- 📢 Add announcements
+- 📝 Add exam information
+- 📄 Upload PDF documents
+- 🖼️ Upload images
+- 🗂️ Manage campus information
+- 🔐 Secure admin authentication
 
 ---
 
-## 🗄️ Database Schema
+## 🧠 AI Assistant
 
-### `users`
-- `id`: INTEGER PRIMARY KEY AUTOINCREMENT
-- `name`: TEXT NOT NULL
-- `email`: TEXT UNIQUE NOT NULL
-- `password`: TEXT NOT NULL (PBKDF2 salted hash)
-- `role`: TEXT NOT NULL ('user' | 'admin')
-- `created_at`: TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+The main feature of Campus AI is the AI-powered campus assistant.
 
-### `knowledge`
-- `id`: INTEGER PRIMARY KEY AUTOINCREMENT
-- `title`: TEXT NOT NULL
-- `content`: TEXT NOT NULL (Extracted PDF/OCR text or direct entered text)
-- `source_type`: TEXT NOT NULL ('text' | 'pdf' | 'image')
-- `category`: TEXT NOT NULL
-- `file_path`: TEXT (Path to original uploaded file if PDF/Image)
-- `created_at`: TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+Students can ask questions such as:
 
----
+```text
+When is the Maths exam?
 
-## 🚀 Quick Start Guide
+What are today's announcements?
 
-### 1. Backend Setup & Run
+Show me the uploaded study material.
 
-Open a terminal in the root directory:
+Explain this PDF.
 
-```bash
+What is the upcoming exam schedule?
+
+The system retrieves relevant campus information and uses an AI model to generate an answer.
+🔎 RAG
+Campus AI uses Retrieval-Augmented Generation (RAG) to answer questions using college-specific information.
+Workflow
+Student Question
+       ↓
+Retrieve Relevant Information
+       ↓
+AI Model
+       ↓
+Generated Answer
+
+This allows the AI assistant to use information provided by the college instead of depending only on general AI knowledge.
+📄 Document & Image Support
+Administrators can add different types of campus resources:
+- PDF documents
+- Images
+- Announcements
+- Exam information
+- Academic materials
+- Campus notices
+These resources can be used by the AI assistant to answer student questions.
+🖼️ OCR Support
+Campus AI can extract text from images using OCR (Optical Character Recognition).
+This can be useful for:
+- Exam schedules
+- Notice board images
+- Circulars
+- Timetables
+- Scanned documents
+Image
+  ↓
+OCR
+  ↓
+Extracted Text
+  ↓
+Campus Knowledge
+  ↓
+AI Assistant
+
+🏗️ System Architecture
+                    ┌─────────────────┐
+                    │     Student     │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ React Frontend  │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │  FastAPI Backend│
+                    └────────┬────────┘
+                             │
+              ┌──────────────┼──────────────┐
+              ▼              ▼              ▼
+          Database          RAG          AI Model
+              │              │              │
+              ▼              ▼              ▼
+           SQLite       Documents      Gemini/OpenAI
+
+🛠️ Technology Stack
+Category	Technology
+Frontend	React, JavaScript, HTML, CSS
+Build Tool	Vite
+Backend	Python, FastAPI
+Database	SQLite
+Authentication	JWT
+AI	Google Gemini / OpenAI
+RAG	Retrieval-Augmented Generation
+OCR	Optical Character Recognition
+Version Control	Git & GitHub
+
+
+📁 Project Structure
+Campus-AI-Assistant/
+│
+├── backend/
+│   ├── app/
+│   ├── uploads/
+│   │   ├── pdfs/
+│   │   └── images/
+│   ├── .env.example
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
+├── assets/
+│   ├── main-page.png
+│   ├── student-page.png
+│   └── admin-page.png
+│
+├── .gitignore
+└── README.md
+
+⚙️ Installation
+1. Clone the Repository
+git clone https://github.com/Ghouse707/Campus-AI-Assistant.git
+cd Campus-AI-Assistant
+
+2. Backend Setup
 cd backend
-```
+python -m venv venv
 
-Install Python dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Initialize and seed the database with sample data:
-
-```bash
-python seed_data.py
-```
-
-Start the FastAPI server:
-
-```bash
-uvicorn app.main:app --reload --port 8000
-```
-
-The backend API will run at `http://127.0.0.1:8000`.  
-Interactive Swagger API documentation: `http://127.0.0.1:8000/docs`.
-
----
-
-### 2. Frontend Setup & Run
-
-Open a second terminal:
-
-```bash
-cd frontend
-```
+Activate the virtual environment on Windows:
+venv\Scripts\activate
 
 Install dependencies:
+pip install -r requirements.txt
 
-```bash
-npm install
-```
-
-Start Vite development server:
-
-```bash
-npm run dev
-```
-
-Open your browser at `http://localhost:5173`.
-
----
-
-## 🔐 Default Credentials & 1-Click Demo
-
-Campus AI includes pre-seeded demo accounts. The login screen also features **1-Click Demo Access** buttons:
-
-| Role | Email | Password | Access Portal |
-| :--- | :--- | :--- | :--- |
-| **Administrator** | `admin@campus.edu` | `admin123` | **Admin Dashboard** (`/admin`) |
-| **Student (User)** | `student@campus.edu` | `student123` | **AI Assistant Chat** (`/chat`) |
-
-> 🔒 **Security Guarantee**: Regular users cannot access `/admin`. Non-admin requests to admin endpoints return `403 Forbidden`.
-
----
-
-## 💬 Sample Inquiries to Try
-
-Log in as a student (`student@campus.edu`) and test asking the AI:
-
-1. **Internal Exams**:
-   - Query: *"When is the internal exam?"*
-   - AI: *"Internal exam will be conducted on 12 July at 9:30 AM."*
-2. **Library Hours**:
-   - Query: *"What are the central library hours?"*
-   - AI: *"The Central Library is open Monday to Saturday from 8:00 AM to 9:00 PM, and Sundays from 10:00 AM to 4:00 PM."*
-3. **Fee Deadlines**:
-   - Query: *"What is the semester fee payment deadline?"*
-   - AI: *"The last date for odd semester fee submission without late fees is 25 August 2026. A late fine of 500 rupees per week applies thereafter on the college ERP portal."*
-4. **Hostel Rules**:
-   - Query: *"What are the hostel curfew timings?"*
-   - AI: *"Hostel gates close strictly at 10:00 PM every night."*
-5. **Information Not in Database**:
-   - Query: *"What are the swimming pool timings on Tuesday?"*
-   - AI: *"I couldn't find this information in the available college data."*
-
----
-
-## ⚙️ Environment Variables (Optional)
-
-In `backend/.env`:
-
-```env
-# Optional LLM API Keys (Works out of the box with local RAG if left blank)
-GEMINI_API_KEY=your_gemini_key_here
-OPENAI_API_KEY=your_openai_key_here
-
-# JWT Configuration
-JWT_SECRET=campus_ai_super_secret_jwt_key_change_in_production_2026
+🔐 Environment Variables
+Create a .env file inside the backend directory:
+JWT_SECRET=your_jwt_secret_here
 JWT_ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=1440
-```
 
----
+GEMINI_API_KEY=your_gemini_api_key
+OPENAI_API_KEY=your_openai_api_key
 
-## 🧪 Automated Testing
+⚠️ Never upload your real .env file or API keys to GitHub.
 
-A complete integration test script is provided. To run the end-to-end verification:
+▶️ Run Backend
+python -m uvicorn app.main:app --reload
 
-```bash
-cd backend
-python test_pipeline.py
-```
-=======
-# campus_ai
->>>>>>> 258e2deb841713eb52828447d6deff82d87919b4
+💻 Run Frontend
+Open another terminal:
+cd frontend
+npm install
+npm run dev
+
+👥 User Roles
+Student
+Students can:
+- Ask the AI assistant questions
+- Access campus information
+- View available resources
+- Get answers from uploaded documents
+Admin
+Admins can:
+- Upload PDFs
+- Upload images
+- Add announcements
+- Add exam information
+- Manage campus information
+🎯 Example Use Cases
+Campus AI can be used for:
+- College announcements
+- Exam schedules
+- Academic documents
+- Timetables
+- Campus notices
+- Study materials
+- Student FAQs
+- College events
+🔮 Future Improvements
+- 🎤 Voice-based AI assistant
+- 🔎 Advanced semantic search
+- 🗃️ Vector database integration
+- 📱 Mobile application
+- 📊 Admin analytics dashboard
+- 🌐 Multi-language support
+- 🔔 Smart notifications
+- 📅 Calendar integration
+🔒 Security
+Campus AI uses basic security practices including:
+- JWT authentication
+- Student and admin role separation
+- Environment variables for secrets
+- .gitignore for sensitive files
+- Protected admin functionality
+👨‍💻 Author
+Ghouse Pasha
+GitHub: https://github.com/Ghouse707
+📄 License
+This project is developed for educational and academic purposes.
+
