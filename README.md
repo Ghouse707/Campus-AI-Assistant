@@ -10,19 +10,17 @@ Students can ask questions through an AI assistant, while administrators can man
 
 ### 🏠 Main Page
 
-<img width="2834" height="1492" alt="image" src="https://github.com/user-attachments/assets/7f0e62b1-6e16-4c47-8998-8fb9b66423a2" />
-
-
+<img width="2834" height="1492" alt="Main Page" src="https://github.com/user-attachments/assets/7f0e62b1-6e16-4c47-8998-8fb9b66423a2" />
 
 ### 👨‍🎓 Student Dashboard
 
-<img width="2848" height="1484" alt="image" src="https://github.com/user-attachments/assets/d3161d6d-45e8-4269-85f6-077bae40cc9f" />
-
-
+<img width="2848" height="1484" alt="Student Dashboard" src="https://github.com/user-attachments/assets/d3161d6d-45e8-4269-85f6-077bae40cc9f" />
 
 ### 👨‍💼 Admin Dashboard
 
-<img width="2868" height="1526" alt="image" src="https://github.com/user-attachments/assets/9d18b6bd-a7bd-409f-b26e-b0efa13068bd" />
+<img width="2868" height="1526" alt="Admin Dashboard" src="https://github.com/user-attachments/assets/9d18b6bd-a7bd-409f-b26e-b0efa13068bd" />
+
+---
 
 ## ✨ Features
 
@@ -64,11 +62,19 @@ Show me the uploaded study material.
 Explain this PDF.
 
 What is the upcoming exam schedule?
+```
 
 The system retrieves relevant campus information and uses an AI model to generate an answer.
-🔎 RAG
+
+---
+
+## 🔎 RAG
+
 Campus AI uses Retrieval-Augmented Generation (RAG) to answer questions using college-specific information.
-Workflow
+
+### Workflow
+
+```text
 Student Question
        ↓
 Retrieve Relevant Information
@@ -76,25 +82,40 @@ Retrieve Relevant Information
 AI Model
        ↓
 Generated Answer
+```
 
 This allows the AI assistant to use information provided by the college instead of depending only on general AI knowledge.
-📄 Document & Image Support
+
+---
+
+## 📄 Document & Image Support
+
 Administrators can add different types of campus resources:
+
 - PDF documents
 - Images
 - Announcements
 - Exam information
 - Academic materials
 - Campus notices
+
 These resources can be used by the AI assistant to answer student questions.
-🖼️ OCR Support
+
+---
+
+## 🖼️ OCR Support
+
 Campus AI can extract text from images using OCR (Optical Character Recognition).
+
 This can be useful for:
+
 - Exam schedules
 - Notice board images
 - Circulars
 - Timetables
 - Scanned documents
+
+```text
 Image
   ↓
 OCR
@@ -104,8 +125,13 @@ Extracted Text
 Campus Knowledge
   ↓
 AI Assistant
+```
 
-🏗️ System Architecture
+---
+
+## 🏗️ System Architecture
+
+```text
                     ┌─────────────────┐
                     │     Student     │
                     └────────┬────────┘
@@ -117,7 +143,7 @@ AI Assistant
                              │
                              ▼
                     ┌─────────────────┐
-                    │  FastAPI Backend│
+                    │ FastAPI Backend │
                     └────────┬────────┘
                              │
               ┌──────────────┼──────────────┐
@@ -126,21 +152,29 @@ AI Assistant
               │              │              │
               ▼              ▼              ▼
            SQLite       Documents      Gemini/OpenAI
+```
 
-🛠️ Technology Stack
-Category	Technology
-Frontend	React, JavaScript, HTML, CSS
-Build Tool	Vite
-Backend	Python, FastAPI
-Database	SQLite
-Authentication	JWT
-AI	Google Gemini / OpenAI
-RAG	Retrieval-Augmented Generation
-OCR	Optical Character Recognition
-Version Control	Git & GitHub
+---
 
+## 🛠️ Technology Stack
 
-📁 Project Structure
+| Category        | Technology                         |
+|-----------------|------------------------------------|
+| Frontend        | React, JavaScript, HTML, CSS       |
+| Build Tool      | Vite                               |
+| Backend         | Python, FastAPI                    |
+| Database        | SQLite                             |
+| Authentication  | JWT                                |
+| AI              | Google Gemini / OpenAI             |
+| RAG             | Retrieval-Augmented Generation     |
+| OCR             | Optical Character Recognition      |
+| Version Control | Git & GitHub                       |
+
+---
+
+## 📁 Project Structure
+
+```text
 Campus-AI-Assistant/
 │
 ├── backend/
@@ -163,58 +197,104 @@ Campus-AI-Assistant/
 │
 ├── .gitignore
 └── README.md
+```
 
-⚙️ Installation
-1. Clone the Repository
+---
+
+## ⚙️ Installation
+
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/Ghouse707/Campus-AI-Assistant.git
 cd Campus-AI-Assistant
+```
 
-2. Backend Setup
+### 2. Backend Setup
+
+```bash
 cd backend
 python -m venv venv
+```
 
 Activate the virtual environment on Windows:
+
+```bash
 venv\Scripts\activate
+```
 
 Install dependencies:
-pip install -r requirements.txt
 
-🔐 Environment Variables
-Create a .env file inside the backend directory:
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file inside the `backend` directory:
+
+```env
 JWT_SECRET=your_jwt_secret_here
 JWT_ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=1440
 
 GEMINI_API_KEY=your_gemini_api_key
 OPENAI_API_KEY=your_openai_api_key
+```
 
-⚠️ Never upload your real .env file or API keys to GitHub.
+> ⚠️ Never upload your real `.env` file or API keys to GitHub.
 
-▶️ Run Backend
+---
+
+## ▶️ Run Backend
+
+```bash
 python -m uvicorn app.main:app --reload
+```
 
-💻 Run Frontend
+---
+
+## 💻 Run Frontend
+
 Open another terminal:
+
+```bash
 cd frontend
 npm install
 npm run dev
+```
 
-👥 User Roles
-Student
+---
+
+## 👥 User Roles
+
+### Student
+
 Students can:
+
 - Ask the AI assistant questions
 - Access campus information
 - View available resources
 - Get answers from uploaded documents
-Admin
+
+### Admin
+
 Admins can:
+
 - Upload PDFs
 - Upload images
 - Add announcements
 - Add exam information
 - Manage campus information
-🎯 Example Use Cases
+
+---
+
+## 🎯 Example Use Cases
+
 Campus AI can be used for:
+
 - College announcements
 - Exam schedules
 - Academic documents
@@ -223,7 +303,11 @@ Campus AI can be used for:
 - Study materials
 - Student FAQs
 - College events
-🔮 Future Improvements
+
+---
+
+## 🔮 Future Improvements
+
 - 🎤 Voice-based AI assistant
 - 🔎 Advanced semantic search
 - 🗃️ Vector database integration
@@ -232,16 +316,29 @@ Campus AI can be used for:
 - 🌐 Multi-language support
 - 🔔 Smart notifications
 - 📅 Calendar integration
-🔒 Security
+
+---
+
+## 🔒 Security
+
 Campus AI uses basic security practices including:
+
 - JWT authentication
 - Student and admin role separation
 - Environment variables for secrets
-- .gitignore for sensitive files
+- `.gitignore` for sensitive files
 - Protected admin functionality
-👨‍💻 Author
-Ghouse Pasha
-GitHub: https://github.com/Ghouse707
-📄 License
-This project is developed for educational and academic purposes.
 
+---
+
+## 👨‍💻 Author
+
+**Ghouse Pasha**
+
+GitHub: [https://github.com/Ghouse707](https://github.com/Ghouse707)
+
+---
+
+## 📄 License
+
+This project is developed for educational and academic purposes.
