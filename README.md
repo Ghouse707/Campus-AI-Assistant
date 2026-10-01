@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Campus AI 🎓
 
 An intelligent, RAG-powered college knowledge assistant and administration management system.
@@ -204,3 +205,6 @@ A complete integration test script is provided. To run the end-to-end verificati
 cd backend
 python test_pipeline.py
 ```
+=======
+# campus_ai
+>>>>>>> 258e2deb841713eb52828447d6deff82d87919b4
